@@ -1,0 +1,11 @@
+README.md
+contributions.md
+requirements.txt
+data/
+  raw/population_addresses_messy.csv # messy inputs
+  cleaned/
+analysis/
+dashboard/
+outputs/
+  figures/
+  tables/
