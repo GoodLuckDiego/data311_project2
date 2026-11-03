@@ -9,12 +9,13 @@ import zipfile
 from pathlib import Path
 import requests
 from IPython.display import display
+from math import radians, sin, cos, sqrt, atan2
 
 
 # WORKSHOPING VALHALLA TRANSIT TIMES
 
-import streamlit as st
-import requests
+# Title
+st.title("Campus Living Decision Helper")
 
 VALHALLA_URL = "https://valhalla1.openstreetmap.de"
 
@@ -48,56 +49,266 @@ def summarize_route(result):
         "time_minutes": summary["time"] / 60,
     }
 
+def geocode_address(address):
+    """Convert a U.S. street address into coordinates."""
+    response = requests.get(
+        "https://geocoding.geo.census.gov/geocoder/locations/onelineaddress",
+        params={
+            "address": address,
+            "benchmark": "Public_AR_Current",
+            "format": "json",
+        },
+        timeout=30,
+    )
+    response.raise_for_status()
+
+    matches = response.json()["result"]["addressMatches"]
+
+    if not matches:
+        raise ValueError(
+            f"Could not find: {address}. "
+            "Include the street number, street name, city, and state."
+        )
+
+    if len(matches) > 1:
+        raise ValueError(
+            f"More than one match found for: {address}. "
+            "Add a ZIP code or a more specific address."
+        )
+
+    match = matches[0]
+
+    return {
+        "lat": match["coordinates"]["y"],
+        "lon": match["coordinates"]["x"],
+    }, match["matchedAddress"]
+
+def straight_line_miles(origin, destination):
+    """Calculate approximate straight-line distance."""
+    lat1 = radians(origin["lat"])
+    lat2 = radians(destination["lat"])
+    delta_lat = lat2 - lat1
+    delta_lon = radians(destination["lon"] - origin["lon"])
+
+    a = (
+        sin(delta_lat / 2) ** 2
+        + cos(lat1) * cos(lat2) * sin(delta_lon / 2) ** 2
+    )
+
+    return 3958.8 * 2 * atan2(
+        sqrt(max(0, a)),
+        sqrt(max(0, 1 - a)),
+    )
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def find_supermarkets(lat, lon, radius_miles):
+    """Find mapped supermarkets within the search radius."""
+    radius_meters = int(radius_miles * 1609.344)
+
+    query = f"""
+    [out:json][timeout:25];
+    nwr["shop"="supermarket"]
+       (around:{radius_meters},{lat},{lon});
+    out center;
+    """
+
+    response = requests.post(
+        "https://overpass.private.coffee/api/interpreter",
+        data={"data": query},
+        timeout=40,
+    )
+    response.raise_for_status()
+    data = response.json()
+
+    if data.get("remark"):
+        raise ValueError(
+            "The places search could not finish. Please try again."
+        )
+
+    origin = {"lat": lat, "lon": lon}
+    places = []
+
+    for element in data["elements"]:
+        # Nodes have coordinates directly; ways/relations have a center.
+        coordinates = element.get("center", element)
+
+        if "lat" not in coordinates or "lon" not in coordinates:
+            continue
+
+        place = {
+            "id": f"{element['type']}/{element['id']}",
+            "name": element.get("tags", {}).get(
+                "name", "Unnamed supermarket"
+            ),
+            "lat": coordinates["lat"],
+            "lon": coordinates["lon"],
+        }
+        place["straight_line_miles"] = straight_line_miles(
+            origin, place
+        )
+        places.append(place)
+
+    return sorted(
+        places,
+        key=lambda place: place["straight_line_miles"],
+    )[:10]
+
 
 st.title("Nearby Places and Travel Times")
 
-# Test coordinates; replace these with address lookup results later.
-origin = {"lon": -122.4194, "lat": 37.7749}
-destination = {"lon": -122.4094, "lat": 37.7849}
+with st.form("places_search"):
+    origin_address = st.text_input(
+        "Home or potential home address",
+        placeholder="Street number, street name, city, state, ZIP",
+    )
 
-travel_mode = st.selectbox(
-    "Travel mode",
-    ["Walking", "Biking", "Driving"],
-)
+    category = st.selectbox(
+        "Where would you like to go?",
+        ["Campus", "Nearby supermarkets"],
+    )
 
-costing_options = {
-    "Walking": "pedestrian",
-    "Biking": "bicycle",
-    "Driving": "auto",
-}
+    radius = st.selectbox(
+        "Supermarket search radius",
+        [1, 3, 5, 10],
+        index=2,
+        format_func=lambda miles: f"{miles} miles",
+    )
 
-if st.button("Calculate travel time"):
-    try:
-        with st.spinner("Finding a route..."):
-            result = valhalla_route(
-                origin,
-                destination,
-                costing=costing_options[travel_mode],
+    search_submitted = st.form_submit_button("Find destinations")
+
+if search_submitted:
+    # Clear the previous search so failed searches cannot show old results.
+    st.session_state.pop("places_search_result", None)
+
+    if not origin_address.strip():
+        st.warning("Please enter your starting address.")
+    else:
+        try:
+            with st.spinner("Finding your location and destinations..."):
+                origin, matched_origin = geocode_address(
+                    origin_address.strip()
+                )
+
+                if category == "Campus":
+                    campus, matched_campus = geocode_address(
+                        "1 Harpst Street, Arcata, CA 95521"
+                    )
+                    places = [{
+                        "id": "campus",
+                        "name": "Cal Poly Humboldt",
+                        **campus,
+                    }]
+                else:
+                    places = find_supermarkets(
+                        origin["lat"],
+                        origin["lon"],
+                        radius,
+                    )
+
+                st.session_state["places_search_result"] = {
+                    "origin": origin,
+                    "matched_origin": matched_origin,
+                    "places": places,
+                    "category": category,
+                }
+
+                # Reset the destination selection for the new search.
+                st.session_state.pop("selected_place_index", None)
+
+        except requests.RequestException as error:
+            st.error(f"The location search failed: {error}")
+        except (KeyError, TypeError):
+            st.error("The location service returned unexpected data.")
+        except ValueError as error:
+            st.error(str(error))
+
+# Session state keeps results available when widgets rerun the app.
+search = st.session_state.get("places_search_result")
+
+if search:
+    st.write(f"**Starting from:** {search['matched_origin']}")
+    places = search["places"]
+
+    if not places:
+        st.info(
+            "No mapped supermarkets were found. "
+            "Try a larger search radius."
+        )
+    else:
+        def destination_label(index):
+            place = places[index]
+
+            if search["category"] == "Campus":
+                return place["name"]
+
+            distance = place["straight_line_miles"]
+            return (
+                f"{place['name']} — "
+                f"{distance:.2f} miles straight-line"
             )
-            summary = summarize_route(result)
 
-        st.metric(
-            "Estimated travel time",
-            f"{summary['time_minutes']:.1f} minutes",
-        )
-        st.metric(
-            "Route distance",
-            f"{summary['distance_miles']:.2f} miles",
+        selected_index = st.selectbox(
+            "Choose a destination",
+            options=list(range(len(places))),
+            format_func=destination_label,
+            key="selected_place_index",
         )
 
-    except requests.RequestException as error:
-        st.error(f"The routing request failed: {error}")
+        travel_mode = st.selectbox(
+            "Travel mode",
+            ["Walking", "Biking", "Driving"],
+        )
 
-    except (KeyError, TypeError, ValueError):
-        st.error("The routing service did not return a usable route.")
+        if search["category"] == "Nearby supermarkets":
+            st.caption(
+                "Up to 10 results, ordered by straight-line distance. "
+                "The closest by road or travel time may differ. "
+                "Place data: © OpenStreetMap contributors."
+            )
 
-# Set page configuration
-st.set_page_config(page_title="Campus Living Decision", layout="centered")
+        if st.button("Calculate travel time"):
+            selected_place = places[selected_index]
 
-# Title
-st.title("Campus Living Decision Helper")
+            destination = {
+                "lat": selected_place["lat"],
+                "lon": selected_place["lon"],
+            }
+
+            costing_options = {
+                "Walking": "pedestrian",
+                "Biking": "bicycle",
+                "Driving": "auto",
+            }
+
+            try:
+                with st.spinner("Calculating your route..."):
+                    result = valhalla_route(
+                        search["origin"],
+                        destination,
+                        costing=costing_options[travel_mode],
+                    )
+                    summary = summarize_route(result)
+
+                st.write(f"**Destination:** {selected_place['name']}")
+
+                st.metric(
+                    f"Estimated {travel_mode.lower()} time",
+                    f"{summary['time_minutes']:.1f} minutes",
+                )
+                st.metric(
+                    "Route distance",
+                    f"{summary['distance_miles']:.2f} miles",
+                )
+
+            except requests.RequestException as error:
+                st.error(f"The routing request failed: {error}")
+            except (KeyError, TypeError, ValueError):
+                st.error("The service did not return a usable route.")
 
 st.page_link('https://www.kbb.com/new-cars/total-cost-of-ownership/', label='Car Ownership Calculator', icon="🚗")
+
+st.page_link('https://gsp.humboldt.edu/websites/ComuterCostCalculator/', label='Comuter Cost Calculator', icon="💰")
 
 # Question
 st.write("## Do you plan to live on campus?")
