@@ -1,6 +1,4 @@
 # Step 1: About You
-What is your major? (data science / environmental science / whatever /  undecided)
-
 Where is your hometown? (Sacramento/ Bay Area/ Local in Arcata / whatever)
 
 Are you currently attending Cal Poly Humboldt on Campus? (yes / not yet / whatever)
