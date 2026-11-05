@@ -28,137 +28,74 @@ location_id,geocode_location,geocode_location_type
 27,"I St & J St, Eureka, CA 95501, USA",Intersection
 28,"Chartin Rd & South Rail St, Blue Lake, CA 95525, USA",Intersection
 29,"Edwards St & Parker Creek Rd, Trinidad, CA 95570, USA",Intersection
-30,"Central Ave & School Rd, McKinleyville, CA, USA",Intersection
+30,"Central Ave & School Rd, McKinleyville, CA 95519, USA",Intersection
 31,"J St & Wabash Ave, Eureka, CA 95501, USA",Intersection
 32,"Heartwood Dr & School Rd, McKinleyville, CA 95519, USA",Intersection
-33,"Central Ave & School Rd, McKinleyville, CA 95519, USA",Intersection
-34,"Bates Rd & Winchester Ave, McKinleyville, CA 95519, USA",Intersection
-35,"Murray Rd & School Rd, McKinleyville, CA 95519, USA",Intersection
-36,"Broadway St & H St, Eureka, CA 95501, USA",Intersection
-37,"Heartwood Dr & Hiller Rd, McKinleyville, CA 95519, USA",Intersection
-38,"Hatchery Rd & Taylor Way, Blue Lake, CA 95525, USA",Intersection
-39,"Bates Rd & School Rd, McKinleyville, CA 95519, USA",Intersection
-40,"South Rail St & Taylor Way, Blue Lake, CA 95525, USA",Intersection
-41,"Harris St & I St, Eureka, CA 95501, USA",Intersection
-42,"Murray Rd & Winchester Ave, McKinleyville, CA 95519, USA",Intersection
-43,"Myrtle Ave & Wabash Ave, Eureka, CA 95501, USA",Intersection
-44,"6th St & H St, Eureka, CA 95501, USA",Intersection
-45,"5th St & I St, Eureka, CA 95501, USA",Intersection
-46,"Parker Creek Rd & Trinity St, Trinidad, CA 95570, USA",Intersection
-47,"H St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
-48,"5th St & Broadway St, Eureka, CA 95501, USA",Intersection
-49,"Broadway St & J St, Eureka, CA 95501, USA",Intersection
-50,"Greenwood Ave & South Rail St, Blue Lake, CA 95525, USA",Intersection
-51,"5th St & J St, Eureka, CA 95501, USA",Intersection
-52,"Heartwood Dr & Winchester Ave, McKinleyville, CA 95519, USA",Intersection
-53,"6th St & Broadway St, Eureka, CA 95501, USA",Intersection
-54,"6th St & K St, Eureka, CA 95501, USA",Intersection
-55,"Newburg Rd & Rohnerville Rd, Fortuna, CA 95540, USA",Intersection
-56,"6th St & I St, Eureka, CA 95501, USA",Intersection
-57,"5th St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
-58,"Heartwood Dr & Murray Rd, McKinleyville, CA 95519, USA",Intersection
-59,"I St & Myrtle Ave, Eureka, CA, USA",Intersection
-60,"Central Ave & Murray Rd, McKinleyville, CA 95519, USA",Intersection
-61,"Harris St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
-62,"Broadway St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
-63,"Greenwood Ave & Taylor Way, Blue Lake, CA 95525, USA",Intersection
-64,"Edwards St & Trinity St, Trinidad, CA 95570, USA",Intersection
-65,"6th St & Harris St, Eureka, CA, USA",Intersection
-66,"Broadway St & Harris St, Eureka, CA 95501, USA",Intersection
-67,"Bates Rd & Heartwood Dr, McKinleyville, CA 95519, USA",Intersection
-68,"5th St & K St, Eureka, CA 95501, USA",Intersection
-69,"Central Ave & Heartwood Dr, McKinleyville, CA 95519, USA",Intersection
-70,"6th St & Harris St, Eureka, CA 95501, USA",Intersection
-71,"Harris St & K St, Eureka, CA 95501, USA",Intersection
-72,"Bates Rd & Central Ave, McKinleyville, CA 95519, USA",Intersection
-73,"Kenmar Rd & Rohnerville Rd, Fortuna, CA 95540, USA",Intersection
-74,"Baldwin St & LK Wood Blvd, Arcata, CA 95521, USA",Intersection
-75,"Central Ave & Hiller Rd, McKinleyville, CA 95519, USA",Intersection
-76,"H St & K St, Eureka, CA 95501, USA",Intersection
-77,"Edwards St & Parker Creek Rd, Trinidad, CA, USA",Intersection
-78,"I St & Wabash Ave, Eureka, CA 95501, USA",Intersection
-79,"Dinsmore Dr & Kenmar Rd, Fortuna, CA 95540, USA",Intersection
-80,"Central Ave & Winchester Ave, McKinleyville, CA 95519, USA",Intersection
-81,"Broadway St & Harris St, Eureka, CA, USA",Intersection
-82,"Harris St & Wabash Ave, Eureka, CA, USA",Intersection
-83,"Main St & Patrick Point Dr, Trinidad, CA, USA",Intersection
-84,"Dinsmore Dr & Main St, Fortuna, CA 95540, USA",Intersection
-85,"J St & K St, Eureka, CA 95501, USA",Intersection
-86,"J St & Myrtle Ave, Eureka, CA, USA",Intersection
-87,"School Rd & Winchester Ave, McKinleyville, CA, USA",Intersection
-88,"Bates Rd & Hiller Rd, McKinleyville, CA 95519, USA",Intersection
-89,"Murray Rd & School Rd, McKinleyville, CA, USA",Intersection
-90,"Main St & Parker Creek Rd, Trinidad, CA 95570, USA",Intersection
-91,"I St & K St, Eureka, CA 95501, USA",Intersection
-92,"5th St & H St, Eureka, CA 95501, USA",Intersection
-93,"Patrick Point Dr & Trinity St, Trinidad, CA 95570, USA",Intersection
-94,"K St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
-95,"5th St & Harris St, Eureka, CA 95501, USA",Intersection
-96,"J St & Wabash Ave, Eureka, CA, USA",Intersection
-97,"Bates Rd & School Rd, McKinleyville, CA, USA",Intersection
-98,"Dinsmore Dr & Rohnerville Rd, Fortuna, CA 95540, USA",Intersection
-99,"Heartwood Dr & Murray Rd, McKinleyville, CA, USA",Intersection
-100,"Dinsmore Dr & Rohnerville Rd, Fortuna, CA, USA",Intersection
-101,"Main St & Rohnerville Rd, Fortuna, CA 95540, USA",Intersection
-102,"Chartin Rd & Taylor Way, Blue Lake, CA 95525, USA",Intersection
-103,"Main St & Trinity St, Trinidad, CA 95570, USA",Intersection
-104,"Greenwood Ave & Hatchery Rd, Blue Lake, CA 95525, USA",Intersection
-105,"Chartin Rd & Hatchery Rd, Blue Lake, CA 95525, USA",Intersection
-106,"5th St & Wabash Ave, Eureka, CA 95501, USA",Intersection
-107,"Chartin Rd & Greenwood Ave, Blue Lake, CA 95525, USA",Intersection
-108,"Dinsmore Dr & Newburg Rd, Fortuna, CA 95540, USA",Intersection
-109,"Harris St & K St, Eureka, CA, USA",Intersection
-110,"5th St & Myrtle Ave, Eureka, CA, USA",Intersection
-111,"Kenmar Rd & Rohnerville Rd, Fortuna, CA, USA",Intersection
-112,"Heartwood Dr & Hiller Rd, McKinleyville, CA, USA",Intersection
-113,"5th St & Harris St, Eureka, CA, USA",Intersection
-114,"Main St & Newburg Rd, Fortuna, CA, USA",Intersection
-115,"Kenmar Rd & Newburg Rd, Fortuna, CA 95540, USA",Intersection
-116,"H St & K St, Eureka, CA, USA",Intersection
-117,"Hatchery Rd & South Rail St, Blue Lake, CA 95525, USA",Intersection
-118,"Broadway St & J St, Eureka, CA, USA",Intersection
-119,"Central Ave & Hiller Rd, McKinleyville, CA, USA",Intersection
-120,"Bates Rd & Hiller Rd, McKinleyville, CA, USA",Intersection
-121,"Chartin Rd & Hatchery Rd, Blue Lake, CA, USA",Intersection
-122,"6th St & Broadway St, Eureka, CA, USA",Intersection
-123,"Main St & Newburg Rd, Fortuna, CA 95540, USA",Intersection
-124,"Bates Rd & Central Ave, McKinleyville, CA, USA",Intersection
-125,"Main St & Patrick Point Dr, Trinidad, CA 95570, USA",Intersection
-126,"H St & Wabash Ave, Eureka, CA, USA",Intersection
-127,"6th St & Myrtle Ave, Eureka, CA, USA",Intersection
-128,"Harris St & I St, Eureka, CA, USA",Intersection
-129,"5th St & J St, Eureka, CA, USA",Intersection
-130,"I St & K St, Eureka, CA, USA",Intersection
-131,"5th St & I St, Eureka, CA, USA",Intersection
-132,"5th St & H St, Eureka, CA, USA",Intersection
-133,"Hiller Rd & School Rd, McKinleyville, CA, USA",Intersection
-134,"Kenmar Rd & Main St, Fortuna, CA, USA",Intersection
-135,"Bates Rd & Murray Rd, McKinleyville, CA, USA",Intersection
-136,"H St & J St, Eureka, CA, USA",Intersection
-137,"K St & Myrtle Ave, Eureka, CA, USA",Intersection
-138,"J St & K St, Eureka, CA, USA",Intersection
-139,"5th St & Broadway St, Eureka, CA, USA",Intersection
-140,"Central Ave & Heartwood Dr, McKinleyville, CA, USA",Intersection
-141,"Edwards St & Main St, Trinidad, CA, USA",Intersection
-142,"Hiller Rd & Murray Rd, McKinleyville, CA, USA",Intersection
-143,"Dinsmore Dr & Kenmar Rd, Fortuna, CA, USA",Intersection
-144,"5th St & 6th St, Eureka, CA, USA",Intersection
-145,"I St & Wabash Ave, Eureka, CA, USA",Intersection
-146,"Bates Rd & Heartwood Dr, McKinleyville, CA, USA",Intersection
-147,"Central Ave & Winchester Ave, McKinleyville, CA, USA",Intersection
-148,"Samoa Blvd & Union St, Arcata, CA 95521, USA",Intersection
-149,"K St & Wabash Ave, Eureka, CA, USA",Intersection
-150,"5th St & Wabash Ave, Eureka, CA, USA",Intersection
-151,"Central Ave & Murray Rd, McKinleyville, CA, USA",Intersection
-152,"Broadway St & H St, Eureka, CA, USA",Intersection
-153,"Bates Rd & Winchester Ave, McKinleyville, CA, USA",Intersection
-154,"H St & Myrtle Ave, Eureka, CA, USA",Intersection
-155,"Heartwood Dr & Winchester Ave, McKinleyville, CA, USA",Intersection
-156,"Heartwood Dr & School Rd, McKinleyville, CA, USA",Intersection
-157,"6th St & J St, Eureka, CA, USA",Intersection
-158,"Greenwood Ave & Hatchery Rd, Blue Lake, CA, USA",Intersection
-159,"Edwards St & Trinity St, Trinidad, CA, USA",Intersection
-160,"St Louis Rd & LK Wood Blvd, Arcata, CA 95521, USA",Intersection
-161,"St Louis Rd & LK Wood Blvd, Arcata, CA, USA",Intersection
-162,"Main St & Rohnerville Rd, Fortuna, CA, USA",Intersection
-163,"Hiller Rd & Winchester Ave, McKinleyville, CA, USA",Intersection
+33,"Bates Rd & Winchester Ave, McKinleyville, CA 95519, USA",Intersection
+34,"Murray Rd & School Rd, McKinleyville, CA 95519, USA",Intersection
+35,"Broadway St & H St, Eureka, CA 95501, USA",Intersection
+36,"Heartwood Dr & Hiller Rd, McKinleyville, CA 95519, USA",Intersection
+37,"Hatchery Rd & Taylor Way, Blue Lake, CA 95525, USA",Intersection
+38,"Bates Rd & School Rd, McKinleyville, CA 95519, USA",Intersection
+39,"South Rail St & Taylor Way, Blue Lake, CA 95525, USA",Intersection
+40,"Harris St & I St, Eureka, CA 95501, USA",Intersection
+41,"Murray Rd & Winchester Ave, McKinleyville, CA 95519, USA",Intersection
+42,"Myrtle Ave & Wabash Ave, Eureka, CA 95501, USA",Intersection
+43,"6th St & H St, Eureka, CA 95501, USA",Intersection
+44,"5th St & I St, Eureka, CA 95501, USA",Intersection
+45,"Parker Creek Rd & Trinity St, Trinidad, CA 95570, USA",Intersection
+46,"H St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
+47,"5th St & Broadway St, Eureka, CA 95501, USA",Intersection
+48,"Broadway St & J St, Eureka, CA 95501, USA",Intersection
+49,"Greenwood Ave & South Rail St, Blue Lake, CA 95525, USA",Intersection
+50,"5th St & J St, Eureka, CA 95501, USA",Intersection
+51,"Heartwood Dr & Winchester Ave, McKinleyville, CA 95519, USA",Intersection
+52,"6th St & Broadway St, Eureka, CA 95501, USA",Intersection
+53,"6th St & K St, Eureka, CA 95501, USA",Intersection
+54,"Newburg Rd & Rohnerville Rd, Fortuna, CA 95540, USA",Intersection
+55,"6th St & I St, Eureka, CA 95501, USA",Intersection
+56,"5th St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
+57,"Heartwood Dr & Murray Rd, McKinleyville, CA 95519, USA",Intersection
+58,"Central Ave & Murray Rd, McKinleyville, CA 95519, USA",Intersection
+59,"Harris St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
+60,"Broadway St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
+61,"Greenwood Ave & Taylor Way, Blue Lake, CA 95525, USA",Intersection
+62,"Edwards St & Trinity St, Trinidad, CA 95570, USA",Intersection
+63,"6th St & Harris St, Eureka, CA 95501, USA",Intersection
+64,"Broadway St & Harris St, Eureka, CA 95501, USA",Intersection
+65,"Bates Rd & Heartwood Dr, McKinleyville, CA 95519, USA",Intersection
+66,"5th St & K St, Eureka, CA 95501, USA",Intersection
+67,"Central Ave & Heartwood Dr, McKinleyville, CA 95519, USA",Intersection
+68,"Harris St & K St, Eureka, CA 95501, USA",Intersection
+69,"Bates Rd & Central Ave, McKinleyville, CA 95519, USA",Intersection
+70,"Kenmar Rd & Rohnerville Rd, Fortuna, CA 95540, USA",Intersection
+71,"Baldwin St & LK Wood Blvd, Arcata, CA 95521, USA",Intersection
+72,"Central Ave & Hiller Rd, McKinleyville, CA 95519, USA",Intersection
+73,"H St & K St, Eureka, CA 95501, USA",Intersection
+74,"I St & Wabash Ave, Eureka, CA 95501, USA",Intersection
+75,"Dinsmore Dr & Kenmar Rd, Fortuna, CA 95540, USA",Intersection
+76,"Central Ave & Winchester Ave, McKinleyville, CA 95519, USA",Intersection
+77,"Main St & Patrick Point Dr, Trinidad, CA 95570, USA",Intersection
+78,"Dinsmore Dr & Main St, Fortuna, CA 95540, USA",Intersection
+79,"J St & K St, Eureka, CA 95501, USA",Intersection
+80,"Bates Rd & Hiller Rd, McKinleyville, CA 95519, USA",Intersection
+81,"Main St & Parker Creek Rd, Trinidad, CA 95570, USA",Intersection
+82,"I St & K St, Eureka, CA 95501, USA",Intersection
+83,"5th St & H St, Eureka, CA 95501, USA",Intersection
+84,"Patrick Point Dr & Trinity St, Trinidad, CA 95570, USA",Intersection
+85,"K St & Myrtle Ave, Eureka, CA 95501, USA",Intersection
+86,"5th St & Harris St, Eureka, CA 95501, USA",Intersection
+87,"Dinsmore Dr & Rohnerville Rd, Fortuna, CA 95540, USA",Intersection
+88,"Main St & Rohnerville Rd, Fortuna, CA 95540, USA",Intersection
+89,"Chartin Rd & Taylor Way, Blue Lake, CA 95525, USA",Intersection
+90,"Main St & Trinity St, Trinidad, CA 95570, USA",Intersection
+91,"Greenwood Ave & Hatchery Rd, Blue Lake, CA 95525, USA",Intersection
+92,"Chartin Rd & Hatchery Rd, Blue Lake, CA 95525, USA",Intersection
+93,"5th St & Wabash Ave, Eureka, CA 95501, USA",Intersection
+94,"Chartin Rd & Greenwood Ave, Blue Lake, CA 95525, USA",Intersection
+95,"Dinsmore Dr & Newburg Rd, Fortuna, CA 95540, USA",Intersection
+96,"Main St & Newburg Rd, Fortuna, CA 95540, USA",Intersection
+97,"Kenmar Rd & Newburg Rd, Fortuna, CA 95540, USA",Intersection
+98,"Hatchery Rd & South Rail St, Blue Lake, CA 95525, USA",Intersection
+99,"Samoa Blvd & Union St, Arcata, CA 95521, USA",Intersection
+100,"St Louis Rd & LK Wood Blvd, Arcata, CA 95521, USA",Intersection
