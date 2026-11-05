@@ -156,8 +156,9 @@ def find_supermarkets(lat, lon, radius_miles):
 
 
 st.title("Nearby Places and Travel Times")
+st.sidebar.markdown("## Input your home/ permanet address")
 
-with st.form("places_search"):
+with st.sidebar.form("places_search"):
     origin_address = st.text_input(
         "Home or potential home address",
         placeholder="Street number, street name, city, state, ZIP",
