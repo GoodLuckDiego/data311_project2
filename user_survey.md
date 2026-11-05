@@ -7,6 +7,8 @@ IF you are currently attending, did you bring a car? (yes / no / whatever)
 
 IF you are planning on attending in person, do you plan to bring a car? (yes / no / not sure)
 
+IF you are planning on attending in person, do you already have a car to use?
+
 # Step 2: Explore the Dashboard (five+ minutes)
 - Try exploring the map
 
