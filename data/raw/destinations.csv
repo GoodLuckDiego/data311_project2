@@ -1,0 +1,30 @@
+id,name,category,address,lat,lon
+rays-arcata,Ray's Food Place — Arcata,supermarket,"5000 Valley W Blvd, Arcata, CA 95521",40.9032,-124.0811
+safeway-arcata,Safeway — F Street,supermarket,"600 F Street, Arcata, CA 95521",40.8657,-124.0852
+wildberries-arcata,Wildberries Marketplace,supermarket,"747 13th Street, Arcata, CA 95521",40.8717,-124.0853
+murphys-market-arcata,Murphy's Market,supermarket,"100 Westwood Court, Arcata, CA 95521",40.8843,-124.0909
+northcoast-co-op-arcata,North Coast Co-op - Arcata,supermarket,"811 I Street, Arcata, CA 95521",40.8689,-124.0886
+murphys-market-sunnybrea,Murphy's Market — Sunnybrae,supermarket,"785 Bayside Road, Arcata, CA 95521",40.8584,-124.0727
+northcoast-co-op-eureka,North Coast Co-op - Eureka,supermarket,"25 4th Street, Eureka, CA 95501",40.8024,-124.171
+grocery-outlet-eureka,Grocery Outlet — Eureka,supermarket,"625 Commercial St, Eureka, CA 95501",40.7996,-124.1741
+enf-eureka,Eureka Natural Foods — Eureka,supermarket,"1450 Broadway St, Eureka, CA 95501",40.7932,-124.178
+winco-eureka,Winco — Eureka,supermarket,"636 W Harris St, Eureka, CA 95501",40.7814,-124.1781
+safeway-eureka,Safeway — Eureka,supermarket,"2555 Harris St, Eureka, CA 95503",40.7809,-124.138
+grocery-outlet-mckinleyville,Grocery Outlet — McKinleyville,supermarket,"1581 Central Ave, McKinleyville, CA 95519",40.9338,-124.1005
+safeway-mckinleyville,Safeway — McKinleyville,supermarket,"1503 City Center Rd, McKinleyville, CA 95519",40.9435,-124.1027
+enf-mckinleyville,Eureka Natural Foods — McKinleyville,supermarket,"2165 Central Ave, McKinleyville, CA 95519",40.9448,-124.1004
+target-eureka,Target — Eureka,department_store,"2525 4th St, Eureka, CA 95501",40.805679293556400,-124.14485787959500
+walmart-eureka,Walmart — Eureka,department_store,"3300 Broadway Bayshore Mall, Eureka, CA 95501",40.78107009503450,-124.19006247975800
+tj-maxx-eureka,TJ Maxx — Eureka,department_store,"3300 Broadway St, Eureka, CA 95501",40.77973285850260,-124.18893982776100
+ross-eureka,Ross — Eureka,department_store,"3300 Broadway St, Eureka, CA 95501",40.780350291411200,-124.18877353079600
+petco-eureka,Petco — Eureka,department_store,"3300 Broadway St Ste 20E, Eureka, CA 95501",40.77915197886720,-124.18979277024800
+ulta-eureka,Ulta — Eureka,department_store,"3300 Broadway St #15, Eureka, CA 95501",40.778520388090400,-124.1905811618040
+old-navy-eureka,Old Navy — Eureka,department_store,"3300 Broadway St Spc No. 512, Eureka, CA 95501",40.778225171716000,-124.19081077389800
+staples-eureka,Staples — Eureka,department_store,"3300 Broadway St, Eureka, CA 95501",40.77805110251460,-124.19102193531900
+ace-hardware-arcata,Ace Hardware — Arcata,department_store,"884 9th St, Arcata, CA 95521",40.86955862192760,-124.08752273870500
+shell-fourth-eureka,"Shell — 4th Street, Eureka",gas_station,"2111 4th St, Eureka, CA 95501",40.804866,-124.148957
+shell-broadway-eureka,"Shell — Broadway, Eureka",gas_station,"3505 Broadway, Eureka, CA 95503",40.775049,-124.190068
+shell-myrtle-eureka,"Shell — Myrtle Avenue, Eureka",gas_station,"1434 Myrtle Ave, Eureka, CA 95501",40.797509,-124.142775
+chevron-giuntoli-arcata,"Chevron — Valley West, Arcata",gas_station,"1605 Giuntoli Lane, Arcata, CA 95521",40.9046,-124.0825
+chevron-j-st-arcata,"Chevron — J Street, Arcata",gas_station,"421 J Street, Arcata, CA 95521",40.8673,-124.0891
+chevron-central-mckinleyville,"Chevron — Central Avenue, McKinleyville",gas_station,"1693 Central Avenue, McKinleyville, CA 95519",40.9359,-124.1009

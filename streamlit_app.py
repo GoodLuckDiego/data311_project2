@@ -10,7 +10,9 @@ from pathlib import Path
 import requests
 from IPython.display import display
 from math import radians, sin, cos, sqrt, atan2
-
+import pydeck as pdk
+import polyline
+from pathlib import Path
 
 # WORKSHOPING VALHALLA TRANSIT TIMES
 
@@ -100,60 +102,147 @@ def straight_line_miles(origin, destination):
         sqrt(max(0, 1 - a)),
     )
 
-
-@st.cache_data(ttl=3600, show_spinner=False)
-def find_supermarkets(lat, lon, radius_miles):
-    """Find mapped supermarkets within the search radius."""
-    radius_meters = int(radius_miles * 1609.344)
-
-    query = f"""
-    [out:json][timeout:25];
-    nwr["shop"="supermarket"]
-       (around:{radius_meters},{lat},{lon});
-    out center;
-    """
-
-    response = requests.post(
-        "https://overpass.private.coffee/api/interpreter",
-        data={"data": query},
-        timeout=40,
+def find_saved_places(lat, lon, radius_miles, category):
+    """Find nearby destinations from our CSV directory."""
+    csv_path = (
+        Path(__file__).resolve().parent
+        / "data"
+        / "raw"
+        / "destinations.csv"
     )
-    response.raise_for_status()
-    data = response.json()
 
-    if data.get("remark"):
+    if not csv_path.is_file():
         raise ValueError(
-            "The places search could not finish. Please try again."
+            "Missing destinations.csv. "
+            "Place it inside the project's data folder."
         )
+
+    destinations = pd.read_csv(csv_path)
+
+    matching_places = destinations[
+        destinations["category"] == category
+    ]
 
     origin = {"lat": lat, "lon": lon}
     places = []
 
-    for element in data["elements"]:
-        # Nodes have coordinates directly; ways/relations have a center.
-        coordinates = element.get("center", element)
+    for place in matching_places.to_dict(orient="records"):
+        distance = straight_line_miles(origin, place)
 
-        if "lat" not in coordinates or "lon" not in coordinates:
-            continue
-
-        place = {
-            "id": f"{element['type']}/{element['id']}",
-            "name": element.get("tags", {}).get(
-                "name", "Unnamed supermarket"
-            ),
-            "lat": coordinates["lat"],
-            "lon": coordinates["lon"],
-        }
-        place["straight_line_miles"] = straight_line_miles(
-            origin, place
-        )
-        places.append(place)
+        if distance <= radius_miles:
+            place["straight_line_miles"] = distance
+            places.append(place)
 
     return sorted(
         places,
         key=lambda place: place["straight_line_miles"],
+    )
+
+
+def find_supermarkets(lat, lon, radius_miles):
+    return find_saved_places(
+        lat, lon, radius_miles, "supermarket"
     )[:10]
 
+
+def find_department_stores(lat, lon, radius_miles):
+    return find_saved_places(
+        lat, lon, radius_miles, "department_store"
+    )
+
+def find_gas_stations(lat, lon, radius_miles):
+    return find_saved_places(
+        lat, lon, radius_miles, "gas_station"
+    )
+
+def show_route_map(result, origin, destination, destination_name):
+                    """Display Valhalla's route and the requested endpoints."""
+                    paths = []
+
+                    for leg in result["trip"]["legs"]:
+                        # Decoder returns (latitude, longitude).
+                        coordinates = polyline.decode(leg["shape"], precision=6)
+
+                        # Pydeck expects [longitude, latitude].
+                        path = [[lon, lat] for lat, lon in coordinates]
+
+                        if path:
+                            paths.append({"path": path, "label": "Calculated route"})
+
+                    if not paths:
+                        st.warning("Travel time was calculated, but no route shape was returned.")
+                        return
+
+                    markers = [
+                        {
+                            "position": [origin["lon"], origin["lat"]],
+                            "label": "Starting address",
+                            "color": [0, 150, 80],
+                        },
+                        {
+                            "position": [destination["lon"], destination["lat"]],
+                            "label": destination_name,
+                            "color": [220, 50, 50],
+                        },
+                    ]
+
+                    route_layer = pdk.Layer(
+                        "PathLayer",
+                        data=paths,
+                        get_path="path",
+                        get_color=[30, 110, 230],
+                        get_width=4,
+                        width_min_pixels=4,
+                        width_max_pixels=4,
+                        pickable=True,
+                    )
+
+                    marker_layer = pdk.Layer(
+                        "ScatterplotLayer",
+                        data=markers,
+                        get_position="position",
+                        get_fill_color="color",
+                        get_radius=8,
+                        radius_min_pixels=6,
+                        radius_max_pixels=8,
+                        pickable=True,
+                    )
+
+                    # Fit the map to the route and both address markers.
+                    points = [
+                        point
+                        for route in paths
+                        for point in route["path"]
+                    ]
+                    points.extend(marker["position"] for marker in markers)
+
+                    # Use a fixed close-up view if every point is identical.
+                    if len({tuple(point) for point in points}) == 1:
+                        view = pdk.ViewState(
+                            longitude=points[0][0],
+                            latitude=points[0][1],
+                            zoom=15,
+                        )
+                    else:
+                        view = pdk.data_utils.compute_view(points)
+                        view.zoom = min(view.zoom - 0.5, 16)
+
+                    st.pydeck_chart(
+                        pdk.Deck(
+                            layers=[route_layer, marker_layer],
+                            initial_view_state=view,
+                            map_provider="carto",
+                            map_style="light",
+                            tooltip={"text": "{label}"},
+                        ),
+                        height=450,
+                    )
+
+                    st.caption(
+                        "Blue: calculated route · Green: starting address · "
+                        "Red: destination. Hover over a marker for its name. "
+                        "Address pins may be slightly away from the routed street or path."
+                    )
 
 st.title("Nearby Places and Travel Times")
 st.sidebar.markdown("## Input your home/ permanet address")
@@ -166,12 +255,12 @@ with st.sidebar.form("places_search"):
 
     category = st.selectbox(
         "Where would you like to go?",
-        ["Campus", "Nearby supermarkets"],
+        ["Campus", "Supermarkets", "Department stores", "Gas stations",],
     )
 
     radius = st.selectbox(
-        "Supermarket search radius",
-        [1, 3, 5, 10],
+        "Search radius",
+        [1, 3, 5, 10, 15, 25],
         index=2,
         format_func=lambda miles: f"{miles} miles",
     )
@@ -179,7 +268,6 @@ with st.sidebar.form("places_search"):
     search_submitted = st.form_submit_button("Find destinations")
 
 if search_submitted:
-    # Clear the previous search so failed searches cannot show old results.
     st.session_state.pop("places_search_result", None)
 
     if not origin_address.strip():
@@ -195,16 +283,37 @@ if search_submitted:
                     campus, matched_campus = geocode_address(
                         "1 Harpst Street, Arcata, CA 95521"
                     )
+
                     places = [{
                         "id": "campus",
                         "name": "Cal Poly Humboldt",
                         **campus,
                     }]
-                else:
+
+                elif category == "Supermarkets":
                     places = find_supermarkets(
                         origin["lat"],
                         origin["lon"],
                         radius,
+                    )
+
+                elif category in ["Department stores", "Shopping"]:
+                    places = find_department_stores(
+                        origin["lat"],
+                        origin["lon"],
+                        radius,
+                    )
+
+                elif category == "Gas stations":
+                    places = find_gas_stations(
+                        origin["lat"],
+                        origin["lon"],
+                        radius,
+                    )
+
+                else:
+                    raise ValueError(
+                        f"Unknown destination category: {category}"
                     )
 
                 st.session_state["places_search_result"] = {
@@ -214,13 +323,14 @@ if search_submitted:
                     "category": category,
                 }
 
-                # Reset the destination selection for the new search.
                 st.session_state.pop("selected_place_index", None)
 
         except requests.RequestException as error:
             st.error(f"The location search failed: {error}")
+
         except (KeyError, TypeError):
             st.error("The location service returned unexpected data.")
+
         except ValueError as error:
             st.error(str(error))
 
@@ -233,9 +343,9 @@ if search:
 
     if not places:
         st.info(
-            "No mapped supermarkets were found. "
+            "No destinations in our saved directory are within this radius. "
             "Try a larger search radius."
-        )
+            )
     else:
         def destination_label(index):
             place = places[index]
@@ -261,11 +371,11 @@ if search:
             ["Walking", "Biking", "Driving"],
         )
 
-        if search["category"] == "Nearby supermarkets":
-            st.caption(
-                "Up to 10 results, ordered by straight-line distance. "
-                "The closest by road or travel time may differ. "
-                "Place data: © OpenStreetMap contributors."
+        st.caption(
+                "Results from our saved Humboldt grocery directory, "
+                "ordered by straight-line distance. "
+                "This directory does not include every store. "
+                "Route distance and travel time may differ."
             )
 
         if st.button("Calculate travel time"):
@@ -297,13 +407,24 @@ if search:
                     f"Estimated {travel_mode.lower()} time",
                     f"{summary['time_minutes']:.1f} minutes",
                 )
+
                 st.metric(
                     "Route distance",
                     f"{summary['distance_miles']:.2f} miles",
                 )
 
+                st.subheader("Your route")
+
+                show_route_map(
+                    result,
+                    search["origin"],
+                    destination,
+                    selected_place["name"],
+                )
+
             except requests.RequestException as error:
                 st.error(f"The routing request failed: {error}")
+
             except (KeyError, TypeError, ValueError):
                 st.error("The service did not return a usable route.")
 
