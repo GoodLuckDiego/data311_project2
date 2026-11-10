@@ -19,6 +19,10 @@ IMPORTANT:
   used in the exploratory Colab notebook.
 - "distance_miles" remains a straight-line (Haversine) measurement. Route
   distances are stored separately and are not mislabeled as straight-line.
+- Correction was made to use the lat and lon from collab notebook as the previous
+  led to a place in bayside which is not where Cal Poly Humboldt is located. 
+  LIBRARY_LAT = 40.8754
+  LIBRARY_LON = -124.0785
 
 Install:
     pip install pandas requests folium tqdm
